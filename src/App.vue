@@ -1,0 +1,48 @@
+<style>
+
+/* Utils CDN */
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css');
+
+/* Font CDN */
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap');
+
+</style>
+
+<template>
+  <div id="app">
+    <router-view/>
+  </div>
+</template>
+
+<script>
+
+import { nextTick, onMounted } from 'vue';
+import "@/assets/css/core.css"
+
+export default {
+  name: 'App',
+  setup() {
+    
+    onMounted(() => {
+      // Handle back button press
+      window.onpopstate = function(event) {
+        window.location.reload();
+      };
+    });
+
+  }
+}
+</script>
+
+<style>
+  *{
+    font-family: var(--rubikFont);
+  }
+
+  body{
+    background-color: var(--black); 
+    overflow: hidden;
+  }
+</style>
