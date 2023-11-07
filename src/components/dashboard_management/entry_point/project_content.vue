@@ -180,7 +180,7 @@ setup(_, context) {
 .project-card {
     overflow: hidden;
     border-radius: 10px;
-    border: 1.5px solid gray;
+    border: 1.5px solid var(--semiBlack);
     background-color: transparent;
     color: #fff;
     margin-bottom: 10px;

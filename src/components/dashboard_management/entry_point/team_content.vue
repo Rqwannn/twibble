@@ -21,7 +21,7 @@
   border: 1.5px dashed gray;
   background-color: transparent;
   min-height: 0;
-  padding: 35px 0;
+  padding: 45px 0;
   color: #fff;
   cursor: pointer;
 }

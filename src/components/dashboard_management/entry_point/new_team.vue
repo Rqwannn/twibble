@@ -9,7 +9,9 @@
           <div class="project p-4 w-100">
             <header-project></header-project>
             <team-tabs></team-tabs>
-            <team-content></team-content>
+            <team-project></team-project>
+            <!-- <team-content></team-content> -->
+            <!-- <project-content></project-content> -->
           </div>
           
       </div>
@@ -26,6 +28,8 @@ import NavBar from "@/components/tamplate/nav_bar.vue"
 import HeaderProject from "@/components/dashboard_management/entry_point/header_project.vue"
 import TeamTabs from "@/components/dashboard_management/entry_point/team_tabs.vue"
 import TeamContent from "@/components/dashboard_management/entry_point/team_content.vue"
+import TeamProject from "@/components/dashboard_management/entry_point/team_project.vue"
+import ProjectContent from "@/components/dashboard_management/entry_point/project_content.vue"
 
 export default {
 components: {
@@ -34,6 +38,8 @@ components: {
     HeaderProject,
     TeamTabs,
     TeamContent,
+    TeamProject,
+    ProjectContent
 },
 setup(_, context) {
 
