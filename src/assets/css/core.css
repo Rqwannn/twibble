@@ -1,7 +1,8 @@
 :root {
     --rubikFont: 'Rubik', sans-serif;
+    --barColor: #1E1E1E;
     --orange: #EF6351;
-    --black: #1E1E1E;
+    --black: #000000;
     --semiBlack: #2B2B2B;
     --semiOrange: #EF635133;
 
@@ -21,4 +22,21 @@
 ::-webkit-scrollbar-thumb {
     background: var(--semiBlack);
     border-radius: 7px;
+}
+
+.circle-box {
+    background-color: var(--semiBlack);
+    border-radius: 50%;
+    padding: 20px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle-text {
+    color: var(--orange);
+    font-weight: bold;
 }

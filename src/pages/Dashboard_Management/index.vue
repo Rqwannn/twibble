@@ -5,7 +5,7 @@
 
     <div class="d-flex">
         <side-bar :style="{ height: sidebarHeight + 'px' }"></side-bar>
-        <!-- <new-team-content></new-team-content> -->
+        <project></project>
     </div>
 
   </div>
@@ -13,6 +13,8 @@
 
 <script>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import Project from "@/components/dashboard_management/project.vue"
+
 import SideBar from "@/components/tamplate/side_bar.vue"
 import NavBar from "@/components/tamplate/nav_bar.vue"
 
@@ -20,6 +22,7 @@ export default {
 components: {
     SideBar,
     NavBar,
+    Project
 },
 setup(_, context) {
 

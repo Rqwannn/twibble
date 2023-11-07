@@ -8,22 +8,28 @@
 
         <ul class="team-list">
             <li>
-                <i class="fa-solid fa-briefcase"></i> #Tim Saya
-                <span class="float-end">
-                    <i class="fa-solid fa-plus"></i>
-                </span>
+                <div class="active">
+                    <i class="fa-solid fa-briefcase"></i> #Tim Saya
+                    <span class="float-end">
+                        <i class="fa-solid fa-plus"></i>
+                    </span>
+                </div>
             </li>
             <li>
-                <i class="fa-solid fa-briefcase"></i> #Tim Saya 2
-                <span class="float-end">
-                    <i class="fa-solid fa-plus"></i>
-                </span>
+                <div>
+                    <i class="fa-solid fa-briefcase"></i> #Tim Saya 2
+                    <span class="float-end">
+                        <i class="fa-solid fa-plus"></i>
+                    </span>
+                </div>
             </li>
             <li>
-                <i class="fa-solid fa-briefcase"></i> #Tim Saya 3
-                <span class="float-end">
-                    <i class="fa-solid fa-plus"></i>
-                </span>
+                <div>
+                    <i class="fa-solid fa-briefcase"></i> #Tim Saya 3
+                    <span class="float-end">
+                        <i class="fa-solid fa-plus"></i>
+                    </span>
+                </div>
             </li>
         </ul>
 
@@ -68,6 +74,28 @@ setup(_, context) {
 </script>
   
 <style>
+    .sidebar {
+        width: 360px;
+        display: flex;
+        flex-direction: column;
+        border-right: 1.5px solid var(--semiBlack);
+        background-color: var(--barColor);
+        color: white;
+    }
+
+    .header-team{
+        text-transform: uppercase;
+    }
+
+    .team-list .active {
+        background-color: var(--semiOrange);
+        color: var(--orange);
+    }
+
+    .team-list .active i{
+        color: var(--orange);
+    }
+
     .teams, .library, .help-center{
         padding: 20px 16px;
     }
@@ -87,27 +115,13 @@ setup(_, context) {
         border-bottom: 1.5px solid var(--semiBlack);
     }
 
-    .sidebar {
-        width: 280px;
-        display: flex;
-        flex-direction: column;
-        border-right: 1.5px solid var(--semiBlack);
-        background-color: #1E1E1E;
-        color: white;
-    }
-
-    .header-team{
-        text-transform: uppercase;
-    }
-
     .team-list {
         list-style: none;
         padding: 0;
     }
 
-    .team-list li {
-        background-color: var(--semiOrange);
-        color: var(--orange);
+    .team-list li div {
+        color: #fff;
         border-radius: 7px;
         margin-bottom: 10px;
         padding: 10px;
@@ -115,7 +129,7 @@ setup(_, context) {
 
     .team-list li i {
         margin-right: 5px;
-        color: var(--orange);
+        color: #fff;
     }
 
     .team-list li .float-end i{

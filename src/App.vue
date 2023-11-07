@@ -20,6 +20,7 @@
 
 import { nextTick, onMounted } from 'vue';
 import "@/assets/css/core.css"
+import "https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
 
 export default {
   name: 'App',
@@ -42,7 +43,6 @@ export default {
   }
 
   body{
-    background-color: var(--black); 
     overflow: hidden;
   }
 </style>

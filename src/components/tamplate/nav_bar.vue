@@ -59,7 +59,7 @@ setup(_, context) {
 <style>
 
     nav.navbar{
-        background-color: var(--black); 
+        background-color: var(--barColor); 
         border-bottom: 1.5px solid var(--semiBlack);
     }
 
@@ -91,23 +91,6 @@ setup(_, context) {
         height: 30px;
         margin: 0 15px;
         opacity: 0.5;
-    }
-
-    .circle-box {
-        background-color: var(--semiBlack);
-        border-radius: 50%;
-        padding: 20px;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        margin-right: 20px;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .circle-text {
-        color: var(--orange);
-        font-weight: bold;
     }
 
     .user-info {
