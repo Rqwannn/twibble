@@ -3,6 +3,22 @@
     --orange: #EF6351;
     --black: #1E1E1E;
     --semiBlack: #2B2B2B;
+    --semiOrange: #EF635133;
+
     --SemiGray: #7C7F82;
     --Gray: #8C8C8C;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--white);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--semiBlack);
+    border-radius: 7px;
 }
