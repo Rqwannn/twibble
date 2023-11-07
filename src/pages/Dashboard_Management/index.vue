@@ -1,16 +1,16 @@
 <template>
   <div>      
-    <project></project>
+    <new-team></new-team>
   </div>
 </template>
 
 <script>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import Project from "@/components/dashboard_management/entry_point/project.vue"
+import NewTeam from "@/components/dashboard_management/entry_point/new_team.vue"
 
 export default {
 components: {
-    Project
+  NewTeam
 },
 setup(_, context) {
 

@@ -33,7 +33,7 @@ components: {
     NavBar,
     HeaderProject,
     TeamTabs,
-    TeamContent
+    TeamContent,
 },
 setup(_, context) {
 
@@ -63,9 +63,6 @@ setup(_, context) {
 
 <style>
   .project{
-    overflow-x: hidden;
-    overflow-y: scroll;
-    height: 100vh;
     background-color: var(--black);
   }
 

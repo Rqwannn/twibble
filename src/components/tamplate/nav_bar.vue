@@ -26,10 +26,10 @@
 
             <div class="user-info">
                 <div class="user-name">
-                    <p>Muhammad Raqwan</p>
+                    <p>Palestina</p>
                     <i class="fa-solid fa-chevron-down ml-3"></i>
                 </div>
-                <p class="user-email">raqwan@gmail.com</p>
+                <p class="user-email">palestina@gmail.com</p>
             </div>
 
         </div>
