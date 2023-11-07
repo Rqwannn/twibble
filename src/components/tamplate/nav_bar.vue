@@ -87,10 +87,9 @@ setup(_, context) {
     }
 
     .vertical-line {
-        border-left: 1px solid rgba(255, 255, 255, 0.5);
+        border-left: 1px solid var(--semiBlack);
         height: 30px;
         margin: 0 15px;
-        opacity: 0.5;
     }
 
     .user-info {

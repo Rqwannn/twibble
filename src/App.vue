@@ -44,5 +44,6 @@ export default {
 
   body{
     overflow: hidden;
+    background-color: var(--black);
   }
 </style>
