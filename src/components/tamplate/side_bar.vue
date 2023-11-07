@@ -49,7 +49,7 @@
         <span>Library</span>
       </div>
   
-      <div class="help-center" style="flex: 0.5;">
+      <div class="help-center d-flex align-items-center" style="flex: 0.5;">
         <i class="fa-regular fa-circle-question"></i>
         <span>Help Center</span>
       </div>

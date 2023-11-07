@@ -1,6 +1,6 @@
 <template>
 
-<div class="d-flex justify-content-between align-items-center new-team-tabs">
+<div class="d-flex justify-content-between align-items-center new-team-tabs mb-4">
     <div class="left">
         LAST VIEWED <i class="fa-solid fa-chevron-down"></i>
     </div>

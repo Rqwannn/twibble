@@ -8,7 +8,8 @@
 
           <div class="project p-4 w-100">
             <header-project></header-project>
-            <new-team-tabs></new-team-tabs>
+            <team-tabs></team-tabs>
+            <team-content></team-content>
           </div>
           
       </div>
@@ -23,14 +24,16 @@ import SideBar from "@/components/tamplate/side_bar.vue"
 import NavBar from "@/components/tamplate/nav_bar.vue"
 
 import HeaderProject from "@/components/dashboard_management/entry_point/header_project.vue"
-import NewTeamTabs from "@/components/dashboard_management/entry_point/new_team_tabs.vue"
+import TeamTabs from "@/components/dashboard_management/entry_point/team_tabs.vue"
+import TeamContent from "@/components/dashboard_management/entry_point/team_content.vue"
 
 export default {
 components: {
     SideBar,
     NavBar,
     HeaderProject,
-    NewTeamTabs
+    TeamTabs,
+    TeamContent
 },
 setup(_, context) {
 
@@ -60,6 +63,9 @@ setup(_, context) {
 
 <style>
   .project{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100vh;
     background-color: var(--black);
   }
 
