@@ -35,8 +35,8 @@ import ProjectContent from "@/components/dashboard_management/entry_point/projec
 
 export default {
 props:{
-  team_id: Number,
-  project_id: Number
+  team_id: String,
+  project_id: String
 },
 components: {
     SideBar,

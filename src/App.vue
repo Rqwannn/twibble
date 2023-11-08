@@ -2,7 +2,7 @@
 
 /* Utils CDN */
 
-@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css');
 
 /* Font CDN */
 

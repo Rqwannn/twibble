@@ -102,7 +102,7 @@ import figjam from "@/assets/image/core/figjam.png"
 export default {
 props: {
     sidebarHeight: Number,
-    team_id: Number
+    team_id: String
 },
 setup(_, context) {
 
