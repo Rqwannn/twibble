@@ -48,8 +48,7 @@ setup(_, context) {
 .left {
     display: flex;
     align-items: center;
-    font-weight: bold;
-    color: var(--semiBlack);
+    color: var(--SemiGray);
 }
 
 .left i{

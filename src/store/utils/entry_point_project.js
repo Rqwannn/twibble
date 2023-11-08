@@ -1,4 +1,4 @@
-export const entry_point_dashboard = {
+export const entry_point_project = {
     state() {
       return {
   
