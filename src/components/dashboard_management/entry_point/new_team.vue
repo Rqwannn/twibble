@@ -4,14 +4,14 @@
       <nav-bar></nav-bar>
 
       <div class="d-flex">
-          <side-bar :team_id="team_id" :project_id="project_id" :style="{ height: sidebarHeight + 'px' }"></side-bar>
+          <side-bar :team_id="team_id" :project_id="project_id" :list_of_team="list_of_team" :style="{ height: sidebarHeight + 'px' }"></side-bar>
 
           <div class="project p-4 w-100">
             <header-project></header-project>
             <!-- <project-tabs></project-tabs> -->
             <team-tabs></team-tabs>
             <!-- <team-project></team-project> -->
-            <team-content></team-content>
+            <team-content :list_of_team="list_of_team" :team_id="team_id"></team-content>
             <!-- <project-content></project-content> -->
           </div>
           
@@ -21,7 +21,8 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import { useStore } from 'vuex';
 
 import SideBar from "@/components/tamplate/side_bar.vue"
 import NavBar from "@/components/tamplate/nav_bar.vue"
@@ -49,10 +50,14 @@ components: {
     ProjectContent
 },
 setup(_, context) {
-  const team_id = _.team_id
-  const project_id = _.project_id
+  const team_id = _.team_id ? _.team_id : null;
+  const project_id = _.project_id ? _.team_id : null;
 
+  const store = useStore();
   const sidebarHeight = ref(0);
+  const list_of_team = ref(store.getters.getTeams).value;
+
+  let name_team = "#Your Team"
 
   const adjustSidebarHeight = () => {
   const navbarHeight = document.querySelector('.navbar').offsetHeight;
@@ -71,7 +76,9 @@ setup(_, context) {
   return {
       sidebarHeight,
       team_id,
-      project_id
+      project_id,
+      list_of_team,
+      name_team
   };
   
   }

@@ -24,7 +24,7 @@
                   Cancel
                 </button>
                 <button type="submit" class="btn custom-btn">
-                  <slot name="icon"></slot> Add Project
+                   Add Project
                 </button>
               </div>
             </form>
@@ -35,26 +35,56 @@
   </template>
   
   <script setup>
-  import { ref, defineProps, defineEmits } from 'vue';
+  import { ref, defineProps } from 'vue';
+  import { useStore } from 'vuex';
   
   const prop = defineProps({
     isShow: {
       type: Boolean,
       default: false,
     },
+    team_id: {
+      type: String,
+      default: true,
+    }
   });
   
   const project = ref('');
-  
+  const store = useStore();
+
   const closeModal = () => {
     project.value = ''; // Mengosongkan input email saat modal ditutup
     emit('closeModal');
   };
   
   const emit = defineEmits(['closeModal']);
+
+  
+  function generateRandomTeamID(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result;
+  }
   
   const submitForm = () => {
-    // Lakukan apa pun yang perlu dilakukan saat form disubmit
+    if(prop.team_id != null) {
+      const newProject = {
+        id: generateRandomTeamID(6),
+        id_team: prop.team_id,
+        name: project.value,
+        thumbnail: ""
+      };
+      store.dispatch('addProject', newProject);
+      closeModal()
+    } else {
+      alert("Di mohon untuk pilih team terlebih dahulu")
+    }
   };
   
   </script>

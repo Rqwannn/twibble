@@ -1,6 +1,9 @@
 <template>
     <div class="sidebar">
 
+      <popup-new-team :isShow="showModal" @closeModal="showModal = false" />
+
+
       <div class="teams" style="flex: 3.2;">
         <div class="header-team">
             <p>Teams</p>
@@ -8,7 +11,28 @@
 
         <ul class="team-list">
 
-            <router-link active-class="active" :to="{name:'Team', params: { team_id: 0 }}" :class="{ active: isActiveTeam(0) }">
+            <router-link v-for="items in list_of_team" :key="items.id" active-class="active" :to="{name:'Team', params: { team_id: items.id }}" :class="{ active: isActiveTeam(items.id) }">
+                <li>
+                    <div class="list-of-team">
+                        <i class="fa-solid fa-briefcase"></i> {{items.name}}
+                        <span class="float-end">
+                            <i class="fa-solid fa-plus"></i>
+                        </span>
+                    </div>
+                    
+                    <!-- <div class="list-of-project" :class="isActiveTeam(0) ? 'list-of-project-active' : ''">
+                        <div class="project-active">
+                            <img :src="figjam_default" alt="figjam"> Industry Music
+                        </div>
+                        <div>
+                            <img :src="figjam_default" alt="figjam"> Industry Music
+                        </div>
+                    </div> -->
+
+                </li>
+            </router-link>
+
+            <!-- <router-link active-class="active" :to="{name:'Team', params: { team_id: 0 }}" :class="{ active: isActiveTeam(0) }">
                 <li>
                     <div class="list-of-team">
                         <i class="fa-solid fa-briefcase"></i> #Tim Saya
@@ -30,7 +54,7 @@
             </router-link>
 
             <li>
-                <div class="cek-activate"> <!-- class="active" -->
+                <div class="cek-activate">  class="active"
                     <i class="fa-solid fa-briefcase"></i> #Tim Raqwan
                     <span class="float-end">
                         <i class="fa-solid fa-plus"></i>
@@ -67,11 +91,11 @@
                         <i class="fa-solid fa-plus"></i>
                     </span>
                 </div>
-            </li>
+            </li> -->
         </ul>
 
         <div class="create-new-teams">
-            <span class="create-btn d-flex">
+            <span class="create-btn d-flex" @click="new_team()">
                 <span class="float-end">
                     <i class="fa-solid fa-plus"></i>
                 </span>
@@ -98,17 +122,24 @@
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import figjam from "@/assets/image/core/figjam.png"
+import PopupNewTeam from '@/components/utils/popup_new_team.vue';
 
 export default {
 props: {
     sidebarHeight: Number,
-    team_id: String
+    team_id: String,
+    list_of_team: Array
+},
+components: {
+    PopupNewTeam,
 },
 setup(_, context) {
 
+    const route = useRoute();
+    
     const figjam_default = figjam
     const activeTeam = ref(_.team_id);
-    const route = useRoute();
+    const listTeam = _.list_of_team;
 
     watch(
       () => route.params.team_id,
@@ -118,14 +149,22 @@ setup(_, context) {
       }
     );
 
-
     const isActiveTeam = (teamName) =>{
         return parseInt(activeTeam.value) === teamName;
+    }
+
+    const showModal = ref(false);
+
+    const new_team = () => {
+        showModal.value = true; // Menampilkan modal saat tombol diklik
     }
         
     return {
         figjam_default,
         isActiveTeam,
+        showModal,
+        new_team,
+        listTeam
     };
     
     }

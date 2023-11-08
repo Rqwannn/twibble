@@ -23,8 +23,8 @@
                 <button @click="closeModal" type="button" class="btn custom-btn">
                   Cancel
                 </button>
-                <button type="submit" class="btn custom-btn">
-                  <slot name="icon"></slot> Add Team
+                <button class="btn custom-btn">
+                   Add Team
                 </button>
               </div>
             </form>
@@ -35,7 +35,8 @@
   </template>
   
   <script setup>
-  import { ref, defineProps, defineEmits } from 'vue';
+  import { ref, defineProps } from 'vue';
+  import { useStore } from 'vuex';
   
   const prop = defineProps({
     isShow: {
@@ -45,18 +46,36 @@
   });
   
   const team = ref('');
+  const store = useStore();
+
+  function generateRandomTeamID(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result;
+  }
   
   const closeModal = () => {
-    team.value = ''; // Mengosongkan input email saat modal ditutup
+    team.value = '';
     emit('closeModal');
   };
   
   const emit = defineEmits(['closeModal']);
   
   const submitForm = () => {
-    // Lakukan apa pun yang perlu dilakukan saat form disubmit
+    const newTeam = {
+      id: generateRandomTeamID(6),
+      name: team.value,
+    };
+    store.dispatch('addTeam', newTeam);
+    closeModal()
   };
-  
+
   </script>
   
   <style scoped>

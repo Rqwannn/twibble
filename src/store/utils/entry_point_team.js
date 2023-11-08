@@ -6,20 +6,21 @@ export const entry_point_team = {
   },
 
   mutations: {
-    // Buat mutation untuk menambah tim
     addTeam(state, team) {
       state.teams.push(team);
     },
   },
 
   getters: {
-    // Getter untuk mendapatkan daftar tim
     getTeams: (state) => state.teams,
+    getTeamById: (state) => (id) => {
+      return state.teams.find(team => team.id === id);
+    }
   },
 
   actions: {
     // Action untuk menambah tim
-    async addTeam({ commit }, team) {
+    addTeam({ commit }, team) {
       commit('addTeam', team);
     },
 

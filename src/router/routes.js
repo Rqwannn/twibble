@@ -8,6 +8,7 @@ const router = createRouter({
         {
             path: '/',
             name: 'New_Team',
+            props: true,
             component: () => import('@/components/dashboard_management/entry_point/new_team.vue')
         },
         {

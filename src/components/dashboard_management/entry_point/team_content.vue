@@ -1,9 +1,11 @@
 <template>
     <div class="team-content">
+       <popup-new-project :team_id="team_id" :isShow="showModal" @closeModal="showModal = false" />
+
         <div class="row">
 
         <div class="col-md-3">
-            <div @click="new_team()" class="card">
+            <div class="card" @click="new_project()">
               <div class="card-body d-flex flex-column justify-content-center align-items-center">
                 <i class="fa-solid fa-plus"></i>
                 <p class="card-text">ADD NEW PROJECT</p>
@@ -13,28 +15,39 @@
 
         </div>
 
-        <popup-new-team :isShow="showModal" @closeModal="showModal = false" />
     </div>
 </template>
 
 <script>
 import { ref } from 'vue';
-import PopupNewTeam from '@/components/utils/popup_new_team.vue';
+import PopupNewProject from '@/components/utils/popup_new_project.vue';
 
 export default {
-  components: {
-    PopupNewTeam,
+  props: {
+    team_id: String,
+    list_of_team: Array
   },
-  setup() {
-    const showModal = ref(false);
+  components: {
+    PopupNewProject,
+  },
+  setup(_, context) {
 
-    const new_team = () => {
-      showModal.value = true; // Menampilkan modal saat tombol diklik
+    const showModal = ref(false);
+    const team_id = _.team_id
+
+    const new_project = () => {
+        if(_.list_of_team.length > 0){
+          showModal.value = true; // Menampilkan modal saat tombol diklik
+        }  else {
+          alert("Mohon Maaf Untuk Buat Team Terlebih Dahulu")
+        }
+
     }
 
     return {
       showModal,
-      new_team,
+      team_id,
+      new_project
     };
   },
 };

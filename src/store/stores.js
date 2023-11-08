@@ -14,7 +14,7 @@ const store = createStore({
       {
         key: 'entry_point_team',
         storage: window.sessionStorage,
-        paths: ['entry_point_team.js'],
+        paths: ['entry_point_team'],
       },
     ),
     createPersistedState(

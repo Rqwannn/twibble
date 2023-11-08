@@ -3,7 +3,7 @@
 
         <div class="header-content d-flex align-items-center justify-content-center">
             <h4><i class="fa-solid fa-briefcase"></i></h4>
-            <h3>#Team Twibble</h3>
+            <h3>{{ name_team }}</h3>
         </div>
 
         <div class="header-content d-flex align-items-center justify-content-center">
@@ -31,6 +31,37 @@
 
     </div>
 </template>
+
+<script>
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
+
+export default {
+  setup(_, context) {
+    const route = useRoute();
+    const store = useStore();
+
+    let name_team = ref("#Your Team")
+
+    if(route.params.team_id){
+      name_team.value = "#" + store.getters.getTeamById(route.params.team_id).name;
+    }
+
+    watch(
+      () => route.params.team_id,
+
+      (newId) => {
+        name_team.value = "#" + store.getters.getTeamById(newId).name;
+      }
+    );
+
+    return {
+      name_team
+    };
+  },
+};
+</script>
 
 <style>
   .header-content{
