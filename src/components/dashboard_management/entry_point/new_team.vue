@@ -4,15 +4,18 @@
       <nav-bar></nav-bar>
 
       <div class="d-flex">
-          <side-bar :team_id="team_id" :project_id="project_id" :list_of_team="list_of_team" :style="{ height: sidebarHeight + 'px' }"></side-bar>
+          <side-bar @cekProjectExis="cekProjectExis = false" :team_id="team_id" :project_id="project_id" :list_of_team="list_of_team" :style="{ height: sidebarHeight + 'px' }"></side-bar>
 
           <div class="project p-4 w-100">
             <header-project></header-project>
-            <!-- <project-tabs></project-tabs> -->
-            <team-tabs></team-tabs>
-            <!-- <team-project></team-project> -->
-            <team-content :list_of_team="list_of_team" :team_id="team_id"></team-content>
-            <!-- <project-content></project-content> -->
+            <!-- <header-on-project></header-on-project> -->
+            
+            <project-tabs v-if="cekProjectExis"></project-tabs>
+            <team-tabs v-if="!cekProjectExis"></team-tabs>
+
+            <team-project v-if="cekTeamExis && cekProjectExis && onTeamSide"></team-project>
+            <project-content v-else-if="cekProjectExis"></project-content>
+            <team-content v-else :list_of_team="list_of_team" :team_id="team_id"></team-content>
           </div>
           
       </div>
@@ -28,6 +31,7 @@ import SideBar from "@/components/tamplate/side_bar.vue"
 import NavBar from "@/components/tamplate/nav_bar.vue"
 
 import HeaderProject from "@/components/dashboard_management/entry_point/header_project.vue"
+import HeaderOnProject from "@/components/dashboard_management/entry_point/header_on_project.vue"
 import TeamTabs from "@/components/dashboard_management/entry_point/team_tabs.vue"
 import ProjectTabs from "@/components/dashboard_management/entry_point/project_tabs.vue"
 import TeamContent from "@/components/dashboard_management/entry_point/team_content.vue"
@@ -43,6 +47,7 @@ components: {
     SideBar,
     NavBar,
     HeaderProject,
+    HeaderOnProject,
     TeamTabs,
     ProjectTabs,
     TeamContent,
@@ -53,9 +58,17 @@ setup(_, context) {
   const team_id = _.team_id ? _.team_id : null;
   const project_id = _.project_id ? _.team_id : null;
 
+  const cekTeamExis = ref(false);
+  const cekProjectExis = ref(false);
+  const onTeamSide = ref(false);
+
   const store = useStore();
   const sidebarHeight = ref(0);
   const list_of_team = ref(store.getters.getTeams).value;
+
+  if(list_of_team.length > 0) {
+    cekTeamExis.value = true
+  }
 
   let name_team = "#Your Team"
 
@@ -78,7 +91,10 @@ setup(_, context) {
       team_id,
       project_id,
       list_of_team,
-      name_team
+      name_team,
+      cekTeamExis,
+      cekProjectExis,
+      onTeamSide
   };
   
   }

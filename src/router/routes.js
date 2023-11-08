@@ -18,7 +18,7 @@ const router = createRouter({
             component: () => import('@/components/dashboard_management/entry_point/new_team.vue')
         },
         {
-            path: '/project/:team_id/project_id',
+            path: '/project/:team_id/:project_id',
             name: 'Project',
             props: true,
             component: () => import('@/components/dashboard_management/entry_point/new_team.vue')

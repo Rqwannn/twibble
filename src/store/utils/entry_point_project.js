@@ -6,19 +6,22 @@ export const entry_point_project = {
   },
 
   mutations: {
-    // Buat mutation untuk menambah tim
     addProject(state, project) {
       state.project.push(project);
     },
   },
 
   getters: {
-    // Getter untuk mendapatkan daftar tim
     getProject: (state) => state.project,
+    getProjectId: (state) => (id_team) => {
+      return state.project.filter(project => project.id_team === id_team);
+    },
+    getProjectById: (state) => (project_id) => {
+      return state.project.find(project => project.id === project_id);
+    }
   },
 
   actions: {
-    // Action untuk menambah tim
     async addProject({ commit }, project) {
       commit('addProject', project);
     },

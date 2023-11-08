@@ -37,7 +37,7 @@ export default {
 
     const new_project = () => {
         if(_.list_of_team.length > 0){
-          showModal.value = true; // Menampilkan modal saat tombol diklik
+          showModal.value = true;
         }  else {
           alert("Mohon Maaf Untuk Buat Team Terlebih Dahulu")
         }

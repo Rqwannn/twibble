@@ -3,7 +3,6 @@
 
       <popup-new-team :isShow="showModal" @closeModal="showModal = false" />
 
-
       <div class="teams" style="flex: 3.2;">
         <div class="header-team">
             <p>Teams</p>
@@ -20,78 +19,14 @@
                         </span>
                     </div>
                     
-                    <!-- <div class="list-of-project" :class="isActiveTeam(0) ? 'list-of-project-active' : ''">
-                        <div class="project-active">
+                    <div class="list-of-project" :class="isProjectNotEmpty(items.id).length > 0 ? 'list-of-project-active' : ''">
+                        <router-link v-for="result in isProjectNotEmpty(items.id)" :key="result.id" active-class="project-active" :to="{name:'Project', params: { team_id: items.id, project_id: result.id }}" :class="{ active: isActiveProject(result.id) }">
                             <img :src="figjam_default" alt="figjam"> Industry Music
-                        </div>
-                        <div>
-                            <img :src="figjam_default" alt="figjam"> Industry Music
-                        </div>
-                    </div> -->
-
-                </li>
-            </router-link>
-
-            <!-- <router-link active-class="active" :to="{name:'Team', params: { team_id: 0 }}" :class="{ active: isActiveTeam(0) }">
-                <li>
-                    <div class="list-of-team">
-                        <i class="fa-solid fa-briefcase"></i> #Tim Saya
-                        <span class="float-end">
-                            <i class="fa-solid fa-plus"></i>
-                        </span>
-                    </div>
-                    
-                    <div class="list-of-project" :class="isActiveTeam(0) ? 'list-of-project-active' : ''">
-                        <div class="project-active">
-                            <img :src="figjam_default" alt="figjam"> Industry Music
-                        </div>
-                        <div>
-                            <img :src="figjam_default" alt="figjam"> Industry Music
-                        </div>
+                        </router-link>
                     </div>
 
                 </li>
             </router-link>
-
-            <li>
-                <div class="cek-activate">  class="active"
-                    <i class="fa-solid fa-briefcase"></i> #Tim Raqwan
-                    <span class="float-end">
-                        <i class="fa-solid fa-plus"></i>
-                    </span>
-                </div>
-
-            </li>
-            
-            <router-link active-class="active" :to="{name:'Team', params: { team_id: 1 }}" :class="{ active: isActiveTeam(1) }">
-                <li>
-                    <div class="list-of-team">
-                        <i class="fa-solid fa-briefcase"></i> #Tim Saya
-                        <span class="float-end">
-                            <i class="fa-solid fa-plus"></i>
-                        </span>
-                    </div>
-                    
-                    <div class="list-of-project" :class="isActiveTeam(1) ? 'list-of-project-active' : ''">
-                        <div class="project-active">
-                            <img :src="figjam_default" alt="figjam"> Industry Music
-                        </div>
-                        <div>
-                            <img :src="figjam_default" alt="figjam"> Industry Music
-                        </div>
-                    </div>
-
-                </li>
-            </router-link>
-
-            <li>
-                <div>
-                    <i class="fa-solid fa-briefcase"></i> #Tim Saya 3
-                    <span class="float-end">
-                        <i class="fa-solid fa-plus"></i>
-                    </span>
-                </div>
-            </li> -->
         </ul>
 
         <div class="create-new-teams">
@@ -121,6 +56,7 @@
 
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 import figjam from "@/assets/image/core/figjam.png"
 import PopupNewTeam from '@/components/utils/popup_new_team.vue';
 
@@ -128,7 +64,15 @@ export default {
 props: {
     sidebarHeight: Number,
     team_id: String,
-    list_of_team: Array
+    project_id: {
+        type: Boolean,
+        default: null,
+    },
+    cekProjectExis: {
+      type: Boolean,
+      default: false,
+    },
+    list_of_team: Array,
 },
 components: {
     PopupNewTeam,
@@ -136,35 +80,57 @@ components: {
 setup(_, context) {
 
     const route = useRoute();
+    const store = useStore();
     
     const figjam_default = figjam
-    const activeTeam = ref(_.team_id);
-    const listTeam = _.list_of_team;
+    const activeTeam = ref(_.team_id) ? ref(_.team_id) : null;
+    const activeProject = ref(_.project_id) ? ref(_.project_id) : null;
+    const listTeam = _.list_of_team ? _.list_of_team : null;
+    const listProject = ref([])
 
     watch(
       () => route.params.team_id,
 
       (newId) => {
+        listProject.value = isProjectNotEmpty(route.params.team_id)
         activeTeam.value = newId;
       }
     );
 
-    const isActiveTeam = (teamName) =>{
-        return parseInt(activeTeam.value) === teamName;
+    const isActiveTeam = (teamID) =>{
+        return parseInt(activeTeam.value) === teamID;
+    }
+
+    const isActiveProject = (projectID) =>{
+        return parseInt(activeProject.value) === projectID;
+    }
+
+    const isProjectNotEmpty = (ID) =>{
+        listProject.value = []
+
+        if(route.params.team_id == ID){
+            let wrapper = store.getters.getProjectId(ID);
+            listProject.value = wrapper ? wrapper : [];
+        }
+
+        return listProject.value;
     }
 
     const showModal = ref(false);
 
     const new_team = () => {
-        showModal.value = true; // Menampilkan modal saat tombol diklik
+        showModal.value = true;
     }
         
     return {
         figjam_default,
         isActiveTeam,
+        isActiveProject,
+        isProjectNotEmpty,
         showModal,
         new_team,
-        listTeam
+        listTeam,
+        listProject
     };
     
     }
@@ -219,8 +185,6 @@ setup(_, context) {
         padding: 0;
     }
 
-    /* ------ */
-
     .team-list a{
         text-decoration: none;
     }
@@ -234,7 +198,7 @@ setup(_, context) {
         color: var(--orange);
     }
 
-    .team-list a li div {
+    .team-list a li div, .team-list a li a {
         color: #fff;
         border-radius: 7px;
         margin-bottom: 10px;
@@ -271,6 +235,8 @@ setup(_, context) {
     }
 
     .team-list .list-of-project {
+        display: flex;
+        flex-direction: column;
         padding: 0;
         margin: 0;
         height: 0;
@@ -284,29 +250,6 @@ setup(_, context) {
 
     .team-list .list-of-project[style*="height: auto"] {
         height: auto;
-    }
-
-    /* ------ */
-    
-    .team-list li div {
-        color: #fff;
-        border-radius: 7px;
-        margin-bottom: 10px;
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .team-list li i, .team-list li img {
-        margin-right: 5px;
-        color: #fff;
-    }
-
-    .team-list li .float-end i{
-        border: 1px solid var(--semiBlack); 
-        border-radius: 5px; 
-        color: #fff;
-        font-size: 12px;
-        padding: 5px;
     }
 
     .city {
