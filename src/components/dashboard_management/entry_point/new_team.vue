@@ -1,5 +1,6 @@
 <template> 
-
+    <!-- <popup-new-collaborator :isShow="true" @closeModal="showModal = false" /> -->
+    
     <div>
       <nav-bar></nav-bar>
 
@@ -27,6 +28,8 @@
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { useStore } from 'vuex';
 
+// import PopupNewCollaborator from '@/components/utils/popup_new_collaborator.vue';
+
 import SideBar from "@/components/tamplate/side_bar.vue"
 import NavBar from "@/components/tamplate/nav_bar.vue"
 
@@ -52,7 +55,8 @@ components: {
     ProjectTabs,
     TeamContent,
     TeamProject,
-    ProjectContent
+    ProjectContent,
+    // PopupNewCollaborator
 },
 setup(_, context) {
   const team_id = _.team_id ? _.team_id : null;
