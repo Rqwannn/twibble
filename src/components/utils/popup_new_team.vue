@@ -13,6 +13,7 @@
             <form @submit.prevent="submitForm">
               <div class="mb-3">
                 <input
+                  :style="{ borderColor: borderColors }"
                   type="text"
                   v-model="team"
                   placeholder="Team Name"
@@ -23,7 +24,7 @@
                 <button @click="closeModal" type="button" class="btn custom-btn">
                   Cancel
                 </button>
-                <button class="btn custom-btn">
+                <button class="btn custom-btn" :style="{ backgroundColor: bgColors }">
                    Add Team
                 </button>
               </div>
@@ -35,7 +36,7 @@
   </template>
   
   <script setup>
-  import { ref, defineProps } from 'vue';
+  import { ref, defineProps, watch } from 'vue';
   import { useStore } from 'vuex';
   
   const prop = defineProps({
@@ -75,6 +76,18 @@
     store.dispatch('addTeam', newTeam);
     closeModal()
   };
+
+  const borderColors = ref("")
+  const bgColors = ref("")
+
+  watch(
+      () => team.value,
+
+      (value) => {
+        borderColors.value = value.length > 0 ? "#EF6351" : "#404040"
+        bgColors.value = value.length > 0 ? "#EF6351" : "#2B2B2B"
+      }
+    );
 
   </script>
   

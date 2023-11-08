@@ -12,31 +12,40 @@
             </p>
             <form @submit.prevent="submitForm">
               <div class="mb-3">
-                <P>Email</P>
-                <input
-                  type="text"
-                  v-model="team"
-                  placeholder="Team Name"
-                  required
-                />
-              </div>
-              <div class="content-collaborators d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">   
-                    <div class="circle-box">
-                        <div class="circle-text">AR</div>
-                    </div>
-                    <div class="user-info">
-                        <div>Palestina</div>
-                        <div class="user-email">palestina@gmail.com</div>
-                    </div>
+                <P>EMAIL</P>
+                <div class="d-flex justify-content-between align-items-center">
+                    <input
+                     :style="{ borderColor: borderColors }"
+                      type="email"
+                      v-model="email"
+                      placeholder="Team Name"
+                      required
+                    />
+                    <button type="submit" class="btn custom-btn" :style="{ backgroundColor: bgColors }">
+                        Add Email
+                    </button>
                 </div>
-                
-                <div>
-                    <select class="btn custom-btn">
-                        <option>Owner</option>
-                        <option>Editor</option>
-                        <option>View</option>
-                    </select>
+              </div>
+              <div class="content-collaborators">
+                <P>PROJECT MEMBERS</P>
+                <div class="body-collaborators d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">   
+                        <div class="circle-box">
+                            <div class="circle-text">AR</div>
+                        </div>
+                        <div class="user-info">
+                            <div>Palestina</div>
+                            <div class="user-email">palestina@gmail.com</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <select class="btn custom-btn">
+                            <option>Owner</option>
+                            <option>Editor</option>
+                            <option>View</option>
+                        </select>
+                    </div>
                 </div>
 
               </div>
@@ -54,7 +63,7 @@
   </template>
   
   <script setup>
-  import { ref, defineProps } from 'vue';
+  import { ref, defineProps, watch } from 'vue';
   
   const prop = defineProps({
     isShow: {
@@ -62,6 +71,20 @@
       default: false,
     },
   });
+
+  const email = ref("")
+
+  const borderColors = ref("")
+  const bgColors = ref("")
+
+  watch(
+      () => email.value,
+
+      (value) => {
+        borderColors.value = value.length > 0 ? "#EF6351" : "#404040"
+        bgColors.value = value.length > 0 ? "#EF6351" : "#2B2B2B"
+      }
+    );
 
   </script>
   
@@ -98,6 +121,12 @@
   .modal-body p {
     color: var(--SemiGray);
     font-size: 14px;
+  }
+
+  .modal-body .btn.custom-btn{
+    margin-left: 10px;
+    width: 200px;
+    height: 100%;
   }
 
   .modal-content{

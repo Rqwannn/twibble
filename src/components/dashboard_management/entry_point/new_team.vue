@@ -8,11 +8,11 @@
           <side-bar @cekProjectExis="cekProjectExis = false" :team_id="team_id" :project_id="project_id" :list_of_team="list_of_team" :style="{ height: sidebarHeight + 'px' }"></side-bar>
 
           <div class="project p-4 w-100">
-            <header-project></header-project>
-            <!-- <header-on-project></header-on-project> -->
+            <header-on-project v-if="cekProjectExis"></header-on-project>
+            <header-project v-else></header-project>
             
             <project-tabs v-if="cekProjectExis"></project-tabs>
-            <team-tabs v-if="!cekProjectExis"></team-tabs>
+            <team-tabs v-else></team-tabs>
 
             <team-project v-if="cekTeamExis && cekProjectExis && onTeamSide"></team-project>
             <project-content v-else-if="cekProjectExis"></project-content>
