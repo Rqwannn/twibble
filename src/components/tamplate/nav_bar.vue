@@ -1,5 +1,7 @@
 <template>
     <nav class="navbar navbar-dark">
+      <popup-new-project :team_id="team_id" :isShow="showModal" @closeModal="showModal = false" />
+
       <div class="d-flex justify-content-between align-items-center custom-content">
 
         <div class="d-flex">
@@ -17,7 +19,7 @@
         </div>
         
         <div class="d-flex align-items-center">
-            <button class="btn-project"><i class="fa-solid fa-plus"></i> New Project</button>
+            <button @click="new_project()" class="btn-project"><i class="fa-solid fa-plus"></i> New Project</button>
             <div class="vertical-line"></div>
 
             <div class="circle-box">
@@ -40,15 +42,38 @@
 
 <script>
 
+import PopupNewProject from '@/components/utils/popup_new_project.vue';
 import logo_path from "@/assets/image/core/logo.png"
+import { useRoute } from 'vue-router';
+import { ref } from 'vue';
 
 export default {
+props: {
+    team_id: String,
+},
+components: {
+    PopupNewProject,
+},
 setup(_, context) {
 
     const logo_default = logo_path
+    const showModal = ref(false);
+    const team_id = _.team_id;
+    const route = useRoute();
+
+    const new_project = () => {
+        if(team_id == route.params.team_id){
+          showModal.value = true;
+        }  else {
+          alert("Mohon Maaf Untuk Buat Team Terlebih Dahulu")
+        }
+    }
         
     return {
-        logo_default
+        logo_default,
+        new_project,
+        showModal,
+        team_id
     };
     
     }

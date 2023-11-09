@@ -22,9 +22,12 @@
                                 <i class="fa-solid fa-ellipsis-v"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Open Project</a></li>
+                                <li><a class="dropdown-item" href="#">Open in new Tab</a></li>
+                                <li><a class="dropdown-item" href="#">Rename</a></li>
+                                <li><a class="dropdown-item" href="#">Move Project</a></li>
+                                <li><a class="dropdown-item" href="#">Bookmark</a></li>
+                                <li><a class="dropdown-item" href="#">Duplicate</a></li>
                             </ul>
                         </div>
                     </div>
@@ -33,96 +36,6 @@
             </div>
           </div>
 
-          <div class="col-md-3">
-            <div class="project-card">
-
-              <div class="d-flex justify-content-center align-items-center">
-                <div class="img-card">
-                    <img :src="thumbnail_default2" alt="thumbnail" >
-                </div>
-              </div>
-
-              <div class="description-card">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="text-card">
-                            <p>Spotify Brand Filter</p>
-                            <p>Tue, 17 Oct 2023</p>
-                        </div>
-                        <div class="dropdown drop-custom">
-                            <button class="btn-invite dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-v"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="project-card">
-
-              <div class="d-flex justify-content-center align-items-center">
-                <div class="img-card">
-                    <img :src="thumbnail_default2" alt="thumbnail" >
-                </div>
-              </div>
-
-              <div class="description-card">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="text-card">
-                            <p>Spotify Brand Filter</p>
-                            <p>Tue, 17 Oct 2023</p>
-                        </div>
-                        <div class="dropdown drop-custom">
-                            <button class="btn-invite dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-v"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="project-card">
-
-              <div class="d-flex justify-content-center align-items-center">
-                <div class="img-card">
-                    <img :src="thumbnail_default2" alt="thumbnail" >
-                </div>
-              </div>
-
-              <div class="description-card">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="text-card">
-                            <p>Spotify Brand Filter</p>
-                            <p>Tue, 17 Oct 2023</p>
-                        </div>
-                        <div class="dropdown drop-custom">
-                            <button class="btn-invite dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-ellipsis-v"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-          </div>
           <div class="col-md-3">
             <div class="project-card">
 
@@ -135,17 +48,20 @@
               <div class="description-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="text-card">
-                            <p>Spotify Brand Filter</p>
-                            <p>Tue, 17 Oct 2023</p>
+                            <p>Virtual Studio</p>
+                            <p>Tue, 4 Oct 2023</p>
                         </div>
                         <div class="dropdown drop-custom">
                             <button class="btn-invite dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-ellipsis-v"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Open Project</a></li>
+                                <li><a class="dropdown-item" href="#">Open in new Tab</a></li>
+                                <li><a class="dropdown-item" href="#">Rename</a></li>
+                                <li><a class="dropdown-item" href="#">Move Project</a></li>
+                                <li><a class="dropdown-item" href="#">Bookmark</a></li>
+                                <li><a class="dropdown-item" href="#">Duplicate</a></li>
                             </ul>
                         </div>
                     </div>
@@ -178,7 +94,6 @@ setup(_, context) {
   
 <style scoped>
 .project-card {
-    overflow: hidden;
     border-radius: 10px;
     border: 1.5px solid var(--semiBlack);
     background-color: transparent;
@@ -190,6 +105,8 @@ setup(_, context) {
 
 .img-card img{
     width: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     max-height: 200px;
 }
 

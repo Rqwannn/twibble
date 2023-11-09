@@ -2,7 +2,8 @@
     <div class="team-content">
         <div class="row">
 
-          <div class="col-md-4">
+          <div v-for="items in listProject" :key="items.id" class="col-md-4">
+            
             <div class="project-card">
 
               <div class="row thumbnail-project">
@@ -35,15 +36,15 @@
               <div class="description-card">
                     <div class="d-flex align-items-center">
                         <div class="text-card">
-                            <p>Industry Music</p>
+                            <p>{{ items.name }}</p>
                             <div class="d-flex align-items-center info">
                                 <p>2 Files</p> <li>Updated 20 Minutes</li>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
+
           </div>
 
         </div>
@@ -51,17 +52,35 @@
 </template>
 
 <script>
+import { ref, toRefs } from 'vue';
 import thumbnail from "@/assets/image/thumb1.png"
 import thumbnail2 from "@/assets/image/thumb1.jpg"
 
 export default {
+props:{
+    list_project: Array,
+},
 setup(_, context) {
+    const { list_project } = toRefs(_);
     const thumbnail_default = thumbnail
     const thumbnail_default2 = thumbnail2
-        
+    const listProject = ref(list_project)
+
+    // watch(
+    //   () => listProject,
+
+    //   (value) => {
+    //     listProject.value = isProjectNotEmpty(route.params.team_id)
+    //     activeTeam.value = newId;
+
+    //     context.emit('listProject', listProject.value);
+    //   }
+    // );
+
     return {
         thumbnail_default,
-        thumbnail_default2
+        thumbnail_default2,
+        listProject
     };
     
     }

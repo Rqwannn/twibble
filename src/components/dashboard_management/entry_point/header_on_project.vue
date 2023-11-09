@@ -52,7 +52,9 @@ export default {
       () => route.params.project_id,
 
       (newId) => {
-        name_project.value = "#" + store.getters.getProjectById(newId).name;
+        if(newId){
+          name_project.value = "#" + store.getters.getProjectById(newId).name;
+        }
       }
     );
 

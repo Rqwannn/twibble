@@ -38,6 +38,7 @@
   <script setup>
   import { ref, defineProps, watch } from 'vue';
   import { useStore } from 'vuex';
+  import { useRoute } from 'vue-router';
   
   const prop = defineProps({
     isShow: {
@@ -51,7 +52,9 @@
   });
   
   const project = ref('');
+  const team_id = ref(prop.team_id)
   const store = useStore();
+  const route = useRoute();
 
   const closeModal = () => {
     project.value = ''; // Mengosongkan input email saat modal ditutup
@@ -60,7 +63,6 @@
   
   const emit = defineEmits(['closeModal']);
 
-  
   function generateRandomTeamID(length) {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -74,10 +76,10 @@
   }
   
   const submitForm = () => {
-    if(prop.team_id != null) {
+    if(team_id.value != null) {
       const newProject = {
         id: generateRandomTeamID(6),
-        id_team: prop.team_id,
+        id_team: team_id.value,
         name: project.value,
         thumbnail: ""
       };
@@ -90,13 +92,17 @@
 
   const borderColors = ref("")
   const bgColors = ref("")
-
+  
   watch(
-      () => project.value,
+      () => [route.params.team_id, project.value],
 
-      (value) => {
-        borderColors.value = value.length > 0 ? "#EF6351" : "#404040"
-        bgColors.value = value.length > 0 ? "#EF6351" : "#2B2B2B"
+      ([teamId, projectValue], [prevTeamId, prevProjectValue]) => {
+        if (teamId !== prevTeamId) {
+          team_id.value = teamId;
+        }
+
+        borderColors.value = projectValue.length > 0 ? "#EF6351" : "#404040"
+        bgColors.value = projectValue.length > 0 ? "#EF6351" : "#2B2B2B"
       }
     );
   

@@ -21,7 +21,7 @@
                     
                     <div class="list-of-project" :class="isProjectNotEmpty(items.id).length > 0 ? 'list-of-project-active' : ''">
                         <router-link v-for="result in isProjectNotEmpty(items.id)" :key="result.id" active-class="project-active" :to="{name:'Project', params: { team_id: items.id, project_id: result.id }}" :class="{ active: isActiveProject(result.id) }">
-                            <img :src="figjam_default" alt="figjam"> Industry Music
+                            <img :src="figjam_default" alt="figjam"> {{ result.name }}
                         </router-link>
                     </div>
 
@@ -54,7 +54,7 @@
 
 <script>
 
-import { ref, watch } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import figjam from "@/assets/image/core/figjam.png"
@@ -81,7 +81,7 @@ setup(_, context) {
 
     const route = useRoute();
     const store = useStore();
-    
+
     const figjam_default = figjam
     const activeTeam = ref(_.team_id) ? ref(_.team_id) : null;
     const activeProject = ref(_.project_id) ? ref(_.project_id) : null;
@@ -94,6 +94,10 @@ setup(_, context) {
       (newId) => {
         listProject.value = isProjectNotEmpty(route.params.team_id)
         activeTeam.value = newId;
+
+        console.log("Watch");
+
+        context.emit('listProject', listProject.value);
       }
     );
 
@@ -115,6 +119,15 @@ setup(_, context) {
 
         return listProject.value;
     }
+
+    watchEffect(() => {
+      // Mengambil data yang dipersist dari Vuex store
+      if(route.params.team_id){
+          const getDataProject = store.getters.getProjectId(route.params.team_id)
+          context.emit('listProject', getDataProject);
+      }
+    });
+
 
     const showModal = ref(false);
 

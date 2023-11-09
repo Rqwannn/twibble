@@ -2,20 +2,20 @@
     <!-- <popup-new-collaborator :isShow="true" @closeModal="showModal = false" /> -->
     
     <div>
-      <nav-bar></nav-bar>
+      <nav-bar :team_id="team_id"></nav-bar>
 
       <div class="d-flex">
-          <side-bar @cekProjectExis="cekProjectExis = false" :team_id="team_id" :project_id="project_id" :list_of_team="list_of_team" :style="{ height: sidebarHeight + 'px' }"></side-bar>
+          <side-bar @listProject="receiveDataProject" :team_id="team_id" :project_id="project_id" :list_of_team="list_of_team" :style="{ height: sidebarHeight + 'px' }"></side-bar>
 
           <div class="project p-4 w-100">
-            <header-on-project v-if="cekProjectExis"></header-on-project>
-            <header-project v-else></header-project>
+            <header-on-project v-if="inProject"></header-on-project>
+            <header-project v-else-if="inDashboard || inTeam"></header-project>
             
-            <project-tabs v-if="cekProjectExis"></project-tabs>
-            <team-tabs v-else></team-tabs>
+            <project-tabs v-if="inProject"></project-tabs>
+            <team-tabs v-else-if="inDashboard || inTeam"></team-tabs>
 
-            <team-project v-if="cekTeamExis && cekProjectExis && onTeamSide"></team-project>
-            <project-content v-else-if="cekProjectExis"></project-content>
+            <project-content v-if="inProject"></project-content>
+            <team-project :list_project="list_of_project" v-else-if="inTeam && !inDashboard"></team-project>
             <team-content v-else :list_of_team="list_of_team" :team_id="team_id"></team-content>
           </div>
           
@@ -27,6 +27,7 @@
 <script>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
 
 // import PopupNewCollaborator from '@/components/utils/popup_new_collaborator.vue';
 
@@ -62,17 +63,30 @@ setup(_, context) {
   const team_id = _.team_id ? _.team_id : null;
   const project_id = _.project_id ? _.team_id : null;
 
-  const cekTeamExis = ref(false);
-  const cekProjectExis = ref(false);
-  const onTeamSide = ref(false);
-
   const store = useStore();
+  const route = useRoute();
+
   const sidebarHeight = ref(0);
   const list_of_team = ref(store.getters.getTeams).value;
+  const list_of_project = ref([])
 
-  if(list_of_team.length > 0) {
-    cekTeamExis.value = true
-  }
+  const inDashboard = ref(false);
+  const inTeam = ref(false)
+  const inProject = ref(false)
+
+  inDashboard.value = route.path.includes("/") && route.path.length == 1;
+  inTeam.value = route.path.includes("team")
+  inProject.value = route.path.includes("project")
+
+  watch(
+    () => route.path,
+    
+    (value) => {
+      inDashboard.value = value.includes("/") && value.length == 1;
+      inTeam.value = value.includes("team")
+      inProject.value = value.includes("project")
+    }
+  );
 
   let name_team = "#Your Team"
 
@@ -89,16 +103,28 @@ setup(_, context) {
   onBeforeUnmount(() => {
       window.removeEventListener('resize', adjustSidebarHeight);
   });
-      
+
+  const receiveDataProject = (data) => {
+    list_of_project.value = data;
+
+    if(data.length == 0){
+      inDashboard.value = true;
+    } else {
+      inDashboard.value = false;
+    }
+  };
+
   return {
       sidebarHeight,
       team_id,
       project_id,
       list_of_team,
       name_team,
-      cekTeamExis,
-      cekProjectExis,
-      onTeamSide
+      inDashboard,
+      inTeam,
+      inProject,
+      receiveDataProject,
+      list_of_project
   };
   
   }
