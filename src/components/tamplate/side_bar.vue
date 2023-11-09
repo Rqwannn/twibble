@@ -95,8 +95,6 @@ setup(_, context) {
         listProject.value = isProjectNotEmpty(route.params.team_id)
         activeTeam.value = newId;
 
-        console.log("Watch");
-
         context.emit('listProject', listProject.value);
       }
     );
@@ -121,9 +119,8 @@ setup(_, context) {
     }
 
     watchEffect(() => {
-      // Mengambil data yang dipersist dari Vuex store
-      if(route.params.team_id){
-          const getDataProject = store.getters.getProjectId(route.params.team_id)
+      if(activeTeam.value){
+          const getDataProject = store.getters.getProjectId(activeTeam.value)
           context.emit('listProject', getDataProject);
       }
     });

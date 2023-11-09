@@ -45,7 +45,7 @@
 import PopupNewProject from '@/components/utils/popup_new_project.vue';
 import logo_path from "@/assets/image/core/logo.png"
 import { useRoute } from 'vue-router';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 export default {
 props: {
@@ -56,13 +56,13 @@ components: {
 },
 setup(_, context) {
 
+    const route = useRoute();
     const logo_default = logo_path
     const showModal = ref(false);
     const team_id = _.team_id;
-    const route = useRoute();
 
     const new_project = () => {
-        if(team_id == route.params.team_id){
+        if(team_id){
           showModal.value = true;
         }  else {
           alert("Mohon Maaf Untuk Buat Team Terlebih Dahulu")

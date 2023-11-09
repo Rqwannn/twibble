@@ -1,4 +1,6 @@
 <template>
+    <popup-new-collaborator :isShow="showModal" @closeModal="showModal = false" />
+
     <div v-show="isShow" class="custom-modal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -38,6 +40,7 @@
   <script setup>
   import { ref, defineProps, watch } from 'vue';
   import { useStore } from 'vuex';
+  import PopupNewCollaborator from '@/components/utils/popup_new_collaborator.vue';
   
   const prop = defineProps({
     isShow: {
@@ -67,14 +70,26 @@
   };
   
   const emit = defineEmits(['closeModal']);
+
+  const showModal = ref(false);
+  const team_id = ref("")
+  const show_collab = ref(false);
+
+  const new_collab = () => {
+    showModal.value = true;
+    show_collab.value = true;
+  }
   
   const submitForm = () => {
+    const id_team = generateRandomTeamID(6); 
     const newTeam = {
-      id: generateRandomTeamID(6),
+      id: id_team,
       name: team.value,
     };
     store.dispatch('addTeam', newTeam);
+    team_id.value = id_team;
     closeModal()
+    new_collab()
   };
 
   const borderColors = ref("")

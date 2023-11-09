@@ -74,6 +74,13 @@
 
   const email = ref("")
 
+  const closeModal = () => {
+    email.value = '';
+    emit('closeModal');
+  };
+  
+  const emit = defineEmits(['closeModal']);
+
   const borderColors = ref("")
   const bgColors = ref("")
 

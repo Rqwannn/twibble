@@ -60,8 +60,9 @@ components: {
     // PopupNewCollaborator
 },
 setup(_, context) {
-  const team_id = _.team_id ? _.team_id : null;
+  const team_id = ref();
   const project_id = _.project_id ? _.team_id : null;
+  team_id.value = _.team_id ? _.team_id : null;
 
   const store = useStore();
   const route = useRoute();
@@ -79,12 +80,12 @@ setup(_, context) {
   inProject.value = route.path.includes("project")
 
   watch(
-    () => route.path,
+    () => [route.params.team_id, route.path],
     
-    (value) => {
-      inDashboard.value = value.includes("/") && value.length == 1;
-      inTeam.value = value.includes("team")
-      inProject.value = value.includes("project")
+    ([teamId, projectValue], [prevTeamId, prevProjectValue]) => {
+      inDashboard.value = projectValue.includes("/") && projectValue.length == 1;
+      inTeam.value = projectValue.includes("team")
+      inProject.value = projectValue.includes("project")
     }
   );
 

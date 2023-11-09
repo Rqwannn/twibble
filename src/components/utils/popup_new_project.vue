@@ -97,9 +97,7 @@
       () => [route.params.team_id, project.value],
 
       ([teamId, projectValue], [prevTeamId, prevProjectValue]) => {
-        if (teamId !== prevTeamId) {
-          team_id.value = teamId;
-        }
+        team_id.value = teamId;
 
         borderColors.value = projectValue.length > 0 ? "#EF6351" : "#404040"
         bgColors.value = projectValue.length > 0 ? "#EF6351" : "#2B2B2B"

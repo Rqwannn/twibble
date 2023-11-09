@@ -41,7 +41,6 @@ export default {
         }  else {
           alert("Mohon Maaf Untuk Buat Team Terlebih Dahulu")
         }
-
     }
 
     return {
